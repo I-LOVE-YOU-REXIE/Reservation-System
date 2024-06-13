@@ -1,0 +1,134 @@
+package ReservationSystem;
+
+public class CustomCalendar {
+
+	// Method to check if a year is a leap year
+	public static boolean isLeapYear(int year) {
+		if (year % 4 == 0) {
+			if (year % 100 == 0) {
+				return year % 400 == 0;
+			} else {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Method to get the number of days in a month
+	public static int getDaysInMonth(int month, int year) {
+		switch (month) {
+		case 1:
+			return 31; // January
+		case 2:
+			return isLeapYear(year) ? 29 : 28; // February
+		case 3:
+			return 31; // March
+		case 4:
+			return 30; // April
+		case 5:
+			return 31; // May
+		case 6:
+			return 30; // June
+		case 7:
+			return 31; // July
+		case 8:
+			return 31; // August
+		case 9:
+			return 30; // September
+		case 10:
+			return 31; // October
+		case 11:
+			return 30; // November
+		case 12:
+			return 31; // December
+		default:
+			return 0;
+		}
+	}
+
+	// Method to get the day of the week for the first day of a month
+	// Zeller's Congruence Algorithm
+	public static int getFirstDayOfMonth(int month, int year) {
+		if (month < 3) {
+			month += 12;
+			year -= 1;
+		}
+		int K = year % 100;
+		int J = year / 100;
+		int firstDay = (1 + (13 * (month + 1)) / 5 + K + (K / 4) + (J / 4) - (2 * J)) % 7;
+		return (firstDay + 5) % 7 + 1; // Adjusting Zeller's output to our format (1 = Monday, 7 = Sunday)
+	}
+
+	private static int maxMonth = 12;
+	private static int MaxDay = 31;
+	private static boolean[][] calendarAvailability = new boolean[maxMonth][MaxDay]; // to represent availability for a
+																						// year
+
+	// this method sets all the dates available initially
+	public static void initializeCalendarAvailabilty() {
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 31; j++) {
+				calendarAvailability[i][j] = true;
+			}
+		}
+	}// end method
+
+	/*
+	 * check if the specific date is available, return the date if available return
+	 * false otherwise
+	 * 
+	 */
+	public boolean isAvailable(int month, int day) {
+		if (month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+			return this.calendarAvailability[month - 1][day - 1];
+		}
+
+		return false;
+	}
+
+	// to check availability
+	public boolean isAvailableForDateRange(int checkoutMonth, int checkInDay, int checkOutMonth, int checkOutDay) {
+		for (int month = 1; month <= checkOutMonth - 1; month++) {
+			int startDay = (month == checkoutMonth) ? checkInDay - 1 : 0;
+			int endDay = (month == checkOutMonth - 1) ? checkOutDay - 1
+					: CustomCalendar.getDaysInMonth(month + 1, 2024) - 1;
+			for (int day = startDay; day <= endDay; day++) {
+				if (!calendarAvailability[month][day]) {
+					return false;
+				}
+			}
+		} // end for
+		return true;
+
+	}// end method
+
+	// getter and setter for calender avaliability
+	public boolean[][] getCalendarAvailability() {
+		boolean[][] calendarCopy = new boolean[12][31];
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 31; j++) {
+				calendarCopy[i][j] = this.calendarAvailability[i][j];
+			}
+		}
+		return calendarCopy;
+	}// end method
+
+	public void setCalendarAvailability(boolean[][] calendarAvailability) {
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 31; j++) {
+				this.calendarAvailability[i][j] = calendarAvailability[i][j];
+			}
+		}
+	}// end method
+
+	// to set availabitlity for a specific date
+	// no non-negativity for motnh and day, and month and days cannot exceded to 12
+	// and 31 respectively
+	public boolean setAvailability(int month, int day, boolean isAvailable) {
+		if (month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+			this.calendarAvailability[month - 1][day - 1] = isAvailable;
+		}
+		return false;
+	}// end method
+
+}// end class
