@@ -1,41 +1,45 @@
 package ReservationSystem;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class MainProgram {
-	
+
 	public static Scanner scan = new Scanner(System.in);
+
 	public static void main(String[] args) {
-		
+
 		accommodationListing();
-		//searchAvailableAccomodation();
-		
+		// searchAvailableAccomodation();
+
 	}
-	
-	//user registration
+
+	// user registration
 	public static void userRegistration() {
 		System.out.print("Name: ");
-		String name  = scan.next();
-		
+		String name = scan.next();
+
 		System.out.println("Age: ");
 		int age = scan.nextInt();
-		
+
 		System.out.println("Gender: ");
 		String gender = scan.next();
-			
+
 		System.out.println("Contact Number: ");
 		String phone = scan.next();
-		
-		Guest guest = new Guest(name, gender, phone, age);
-		
+
+		System.out.println("Number Of Guest: ");
+		int numberOfGuest = scan.nextInt();
+
+		Guest guest = new Guest(name, gender, phone, age, numberOfGuest);
+
 		System.out.println("Guest Registered Successfully!");
-		//also display the registered guest
-		
+		// also display the registered guest
+
 	}
-	
-	//display available accommodation
+
+	// display available accommodation
 	public static void accommodationListing() {
-		
+
 		Accommodation room = new Accommodation();
 		//Accommodation roomAccommodation = new Accommodation("ROOM", room.getAmenities(), 450);
 		room.setType("Room");
@@ -43,20 +47,20 @@ public class MainProgram {
 		room.addAmenity("Mini Fridge");
 		room.addAmenity("Internet");
 		room.addAmenity("Pet Friendly");
+
+
 		//this sets the room calendar availability to true initialy
 		//room.setCalendarAvailability();
 		
-		//display 
 		System.out.println(room.getType());
 		System.out.println("Price per night: " + room.getPricePerNight());
 		room.printAmenities();
 		System.out.println();
-		
 
 //		for(int i = 1; i < 12; i++) {
 //			room.displayAvailability(2024, i);
 //		}
-			
+
 		Accommodation suite = new Accommodation();
 		suite.setType("Suite");
 		suite.setPricePerNight(650);
@@ -64,13 +68,12 @@ public class MainProgram {
 		suite.addAmenity("Mini Fridge");
 		suite.addAmenity("Internet");
 		suite.addAmenity("Pet Friendly");
-		
-		
+
 		System.out.println(suite.getType());
 		System.out.println("Price per night: " + suite.getPricePerNight());
 		suite.printAmenities();
 		System.out.println();
-		
+
 		Accommodation villa = new Accommodation();
 		villa.setType("Villa");
 		villa.setPricePerNight(850);
@@ -79,17 +82,18 @@ public class MainProgram {
 		villa.addAmenity("Jacuzzi");
 		villa.addAmenity("Internet");
 		villa.addAmenity("Pet Friendly");
-		
+
 		System.out.println(villa.getType());
 		System.out.println("Price per night: " + villa.getPricePerNight());
 		villa.printAmenities();
 		System.out.println();
-				
+
 	}
-    
+
 	public static void searchAvailableAccomodation() {
 		System.out.println("Chek-in date: ");
 		System.out.print("Month(1-12): ");
+
 		int monthStart = scan.nextInt();
 		
 		System.out.print("Day(1-31): ");
@@ -103,19 +107,6 @@ public class MainProgram {
 		int dayEnd = scan.nextInt();
 		
 		
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
