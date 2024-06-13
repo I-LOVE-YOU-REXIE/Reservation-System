@@ -41,14 +41,17 @@ public class MainProgram {
 	public static void accommodationListing() {
 
 		Accommodation room = new Accommodation();
+		//Accommodation roomAccommodation = new Accommodation("ROOM", room.getAmenities(), 450);
 		room.setType("Room");
 		room.setPricePerNight(450);
 		room.addAmenity("Mini Fridge");
 		room.addAmenity("Internet");
 		room.addAmenity("Pet Friendly");
-		// room.setCalendarAvailability(null);
 
-		// display
+
+		//this sets the room calendar availability to true initialy
+		//room.setCalendarAvailability();
+		
 		System.out.println(room.getType());
 		System.out.println("Price per night: " + room.getPricePerNight());
 		room.printAmenities();
@@ -90,11 +93,20 @@ public class MainProgram {
 	public static void searchAvailableAccomodation() {
 		System.out.println("Chek-in date: ");
 		System.out.print("Month(1-12): ");
-		int month = scan.nextInt();
 
+		int monthStart = scan.nextInt();
+		
 		System.out.print("Day(1-31): ");
-		int day = scan.nextInt();
-
+		int dayStart = scan.nextInt();
+		
+		System.out.println("Chek-out date: ");
+		System.out.print("Month(1-12): ");
+		int monthEnd = scan.nextInt();
+		
+		System.out.print("Day(1-31): ");
+		int dayEnd = scan.nextInt();
+		
+		
 	}
 
 }
